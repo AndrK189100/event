@@ -1,4 +1,4 @@
-name: DOM
+name: EVENT
 
 on: [push, pull_request]
 
