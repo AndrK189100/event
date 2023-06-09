@@ -6,7 +6,7 @@ export default class Game {
     this.hit = 0;
     this.miss = 0;
     this.field = document.querySelector(field);
-    this.cells = this.field.querySelectorAll(".field-cell");
+    this.fieldCells = this.field.querySelector(".field-cells");
 
     this.hits = this.field.querySelector(".info-hits");
     this.hits.textContent = `HITS: ${this.hit}`;
@@ -14,7 +14,7 @@ export default class Game {
     this.misses.textContent = `MISSES: ${this.miss}`;
 
     this.goblin = new Goblin();
-    this.filedCells = new FieldCells(this.cells);
+    this.cells = new FieldCells(this.fieldCells.children);
   }
 
   onClick(event) {
@@ -22,10 +22,10 @@ export default class Game {
     if (event.target.classList.contains("pers")) {
       this.hit += 1;
       this.hits.textContent = `HITS: ${this.hit}`;
-      this.filedCells.rendering(this.goblin.mooving());
+      this.cells.rendering(this.goblin.mooving());
       clearInterval(this.interval);
       this.interval = this.interval = setInterval(() => {
-        this.filedCells.rendering(this.goblin.mooving());
+        this.cells.rendering(this.goblin.mooving());
       }, 1000);
     } else {
       this.miss += 1;
@@ -41,10 +41,10 @@ export default class Game {
 
   start() {
     this.interval = setInterval(() => {
-      this.filedCells.rendering(this.goblin.mooving());
+      this.cells.rendering(this.goblin.mooving());
     }, 1000);
 
     this.onClick = this.onClick.bind(this);
-    this.field.addEventListener("click", this.onClick);
+    this.fieldCells.addEventListener("click", this.onClick);
   }
 }
